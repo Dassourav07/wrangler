@@ -38,11 +38,13 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
+
 
 /**
  * This class <code>RecipeVisitor</code> implements the visitor pattern
@@ -96,6 +98,26 @@ public final class RecipeVisitor extends DirectivesBaseVisitor<RecipeSymbol.Buil
     builder.addToken(new Identifier(ctx.Identifier().getText()));
     return super.visitIdentifier(ctx);
   }
+  
+  @Override
+  public RecipeSymbol.Builder visitByteSizeArg(DirectivesParser.ByteSizeArgContext ctx) {
+    ByteSize byteSize = new ByteSize(ctx.getText());
+    RecipeSymbol.Builder builder = RecipeSymbol.builder();
+    builder.addToken(byteSize);
+    return builder;
+  }
+  
+  @Override
+  public RecipeSymbol.Builder visitTimeDurationArg(DirectivesParser.TimeDurationArgContext ctx) {
+    TimeDuration duration = new TimeDuration(ctx.getText());
+    RecipeSymbol.Builder builder = RecipeSymbol.builder();
+    builder.addToken(duration);
+    return builder;
+  }
+  
+  
+  
+  
 
   /**
    * A Directive can include properties (which are a collection of key and value pairs),
@@ -137,7 +159,6 @@ public final class RecipeVisitor extends DirectivesBaseVisitor<RecipeSymbol.Buil
     }
     return builder;
   }
-
   /**
    * A Pragma version is a informational directive to notify compiler about the grammar that is should
    * be using to parse the directives below.

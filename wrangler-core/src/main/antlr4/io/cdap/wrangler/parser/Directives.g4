@@ -62,10 +62,15 @@ directive
     | numberList
     | boolList
     | stringList
-    | numberRanges
+    | byteSizeArg
+    | timeDurationArg
     | properties
   )*?
   ;
+
+  byteSizeArg: BYTESIZE ;
+  timeDurationArg: TIMEDURATION ;
+
 
 ifStatement
   : ifStat elseIfStat* elseStat? '}'
@@ -302,6 +307,13 @@ Comment
 Space
  : [ \t\r\n\u000C]+ -> skip
  ;
+
+// Lexer rules for byte and time units
+BYTESIZE: [0-9]+ ('.' [0-9]+)? BYTE_UNIT;
+fragment BYTE_UNIT: ('B' | 'KB' | 'MB' | 'GB' | 'TB');
+
+TIMEDURATION: [0-9]+ ('.' [0-9]+)? TIME_UNIT;
+fragment TIME_UNIT: ('ms' | 's' | 'm' | 'h');
 
 fragment Int
  : '-'? [1-9] Digit* [L]*

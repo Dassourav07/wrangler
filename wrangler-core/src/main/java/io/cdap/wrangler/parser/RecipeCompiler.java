@@ -48,6 +48,7 @@ public final class RecipeCompiler implements Compiler {
       throw new CompileException(e.getMessage(), e);
     }
   }
+  
 
   @Override
   public CompileStatus compile(Path path) throws CompileException {
