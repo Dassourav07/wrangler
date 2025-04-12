@@ -10,10 +10,10 @@
 
  package io.cdap.directives.parser;
 
- import io.cdap.wrangler.api.parser.Token;
- import io.cdap.wrangler.api.parser.TokenType;
  import com.google.gson.JsonElement;
  import com.google.gson.JsonPrimitive;
+ import io.cdap.wrangler.api.parser.Token;
+ import io.cdap.wrangler.api.parser.TokenType;
  
  /**
   * Test implementation for ByteSize token functionality.
@@ -31,10 +31,18 @@
      input = input.toUpperCase().trim();
      double number = Double.parseDouble(input.replaceAll("[^0-9.]", ""));
  
-     if (input.endsWith("KB")) return (long) (number * 1024);
-     if (input.endsWith("MB")) return (long) (number * 1024 * 1024);
-     if (input.endsWith("GB")) return (long) (number * 1024 * 1024 * 1024);
-     if (input.endsWith("TB")) return (long) (number * 1024L * 1024 * 1024 * 1024);
+     if (input.endsWith("KB")) {
+       return (long) (number * 1024);
+     }
+     if (input.endsWith("MB")) {
+       return (long) (number * 1024 * 1024);
+     }
+     if (input.endsWith("GB")) {
+       return (long) (number * 1024 * 1024 * 1024);
+     }
+     if (input.endsWith("TB")) {
+       return (long) (number * 1024L * 1024 * 1024 * 1024);
+     }
      return (long) number;
    }
  
@@ -56,5 +64,9 @@
    public JsonElement toJson() {
      return new JsonPrimitive(value);
    }
- }
+}
+
+
  
+ 
+

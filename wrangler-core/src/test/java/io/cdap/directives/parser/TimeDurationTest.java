@@ -10,10 +10,10 @@
 
  package io.cdap.directives.parser;
 
- import io.cdap.wrangler.api.parser.Token;
- import io.cdap.wrangler.api.parser.TokenType;
  import com.google.gson.JsonElement;
  import com.google.gson.JsonPrimitive;
+ import io.cdap.wrangler.api.parser.Token;
+ import io.cdap.wrangler.api.parser.TokenType;
  
  /**
   * Token implementation for representing time durations like "5s", "10m", etc.
@@ -31,10 +31,21 @@
      input = input.toLowerCase().trim();
      double number = Double.parseDouble(input.replaceAll("[^0-9.]", ""));
  
-     if (input.endsWith("ms")) return (long) number;
-     if (input.endsWith("s")) return (long) (number * 1000);
-     if (input.endsWith("m")) return (long) (number * 60 * 1000);
-     if (input.endsWith("h")) return (long) (number * 60 * 60 * 1000);
+     if (input.endsWith("ms")) {
+       return (long) number;
+     }
+     if (input.endsWith("s")) {
+       return (long) (number * 1000);
+     }
+     if (input.endsWith("m")) {
+       return (long) (number * 60 * 1000);
+     }
+     if (input.endsWith("h")) {
+       return (long) (number * 60 * 60 * 1000);
+     }
+     if (input.endsWith("d")) {
+       return (long) (number * 24 * 60 * 60 * 1000);
+     }
      return (long) number;
    }
  
@@ -56,7 +67,7 @@
    public JsonElement toJson() {
      return new JsonPrimitive(value);
    }
- }
+}
 
- 
- 
+
+
